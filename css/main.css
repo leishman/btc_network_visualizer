@@ -62,30 +62,55 @@ textarea {
    ========================================================================== */
 
 
-   .vizContainer {
+  .vizContainer {
     width: 100%;
     height: 500px;
-    background: lightgray;
-   }
+    background: #EEE;
+  }
 
-  .txBubble {
-    width: 1px;
-    height: 1px;
+   .txBubble {
     position: absolute;
+  }
+
+  .txBubbleInner {
+    width: 100%;
+    height: 100%;
+    position: relative;
     background: red;
     border-radius: 50%;
-   }
+    -webkit-animation: expand 1s ease-in-out;
+  }
 
+  .toolTip {
+    width: auto;
+    height: 40px;
+    padding: 0 5px;
+    background: #AAA;
+    border-radius: 4px;
+    color: white;
+    position: absolute;
+  }
 
+  .toolTip p {
+    line-height: 40px;
+  }
 
+  /* Animations */
 
-
-
-
-
-
-
-
+  @-webkit-keyframes expand {
+    0% {
+      width: 0;
+      height: 0;
+      left: 50%;
+      top: 50%;
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
 
 /* ==========================================================================
    Media Queries

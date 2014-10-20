@@ -5,9 +5,10 @@ var blkchainSocket = new WebSocket('wss://ws.blockchain.info/inv');
 blkchainSocket.onopen = function(event) {
   var subMessage;
 
-  // message to subscripe to all unconfirmed transactions
+  // message to subscribe to all unconfirmed transactions
   subMessage = '{"op":"unconfirmed_sub"}';
 
+  // send message to subscribe
   blkchainSocket.send(subMessage);
 }
 
@@ -21,7 +22,8 @@ blkchainSocket.onmessage = function(event) {
 function visualize(data) {
 
   // declare variables
-  var r, txVal, txDot, vizHeight, vizWidth, vizContainter, valNorm = 12500000;
+  var r, txVal, outputs, txDot, vizHeight, vizWidth,
+    vizContainter, dot, valNorm = 10000000;
 
   // query DOM for viz Container
   vizContainter = $('.js-visualize');
@@ -31,24 +33,62 @@ function visualize(data) {
   vizWidth = vizContainter.width();
 
   // get value of first tx ouput (for test only)
-  txVal = data.x.out[0].value;
+  outputs = data.x.out;
+
+  txVal = 0;
+
+  // iterate through all unspent outputs to calculate value of tx
+  for(var i = 0; i < outputs.length; i++){
+    txVal += outputs[i].value;
+  }
 
   // calculate radius
   r = (txVal / valNorm) / 2;
 
   // generate random position
-  randTop = randomInt(vizHeight) - r;
+  randTop = randomInt(vizHeight) + 88;
   randLeft = randomInt(vizWidth) - r;
 
   // set minimum size for r
-  if(r < 5) r = 5;
+  if(r < 5) {
+    r = 5;
+  } else if(r > 100) {
+    r = 100;
+  }
 
   // define HTML element
-  txDot = $('<div class="txBubble"></div>')
-    .css({'top': randTop, 'left': randLeft, 'width': r, 'height': r});
+  txDot = $('<div class="txBubble"><div class="txBubbleInner"></div></div>')
+    .css({'top': randTop, 'left': randLeft, 'width': r, 'height': r})
+    .attr('data-txvalue', txVal);
 
-  vizContainter.append(txDot);
 
+  // add element to DOM
+  dot = vizContainter.append(txDot);
+}
+
+
+// function to display tooltip
+function showTooltip(event) {
+  // declare variables
+  var addrs, value, tooltip;
+
+  // get value of tx stored as data attribute
+  value = $(this).data('txvalue');
+
+  // get coordinates of user's click
+  xCoord = event.clientX;
+  yCoord = event.clientY;
+
+  // remove other tooltips
+  $('.toolTip').remove();
+
+  // create a tooltip and position it at user's click
+  tooltip = $('<div class="toolTip"></div>')
+    .css({'top': yCoord, 'left': xCoord})
+    .html('<p>' + satoshi2btc(value) + ' BTC</p>');
+
+  // add tooltip to DOM
+  $('.js-visualize').append(tooltip);
 }
 
 // define random integer function
@@ -56,4 +96,13 @@ function randomInt(range) {
   return Math.floor(Math.random() * range);
 }
 
+// convert satoshis to BTC
+function satoshi2btc(val) {
+  return val / 100000000;
+}
+
+// bind showTooltip function on dom load
+$(function() {
+  $(document).on('click', '.txBubble', showTooltip);
+});
 
