@@ -48,7 +48,7 @@ function visualize(data) {
   randTop = randomInt(vizHeight) + 88;
   randLeft = randomInt(vizWidth) - r;
 
-  // set minimum size for r
+  // set min and max sizes for r
   if(r < 5) {
     r = 5;
   } else if(r > 100) {
