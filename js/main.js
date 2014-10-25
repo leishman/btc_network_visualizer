@@ -1,3 +1,4 @@
+
 // create new websocket object using a secure connection (wss)
 var blkchainSocket = new WebSocket('wss://ws.blockchain.info/inv');
 
@@ -22,8 +23,8 @@ blkchainSocket.onmessage = function(event) {
 function visualize(data) {
 
   // declare variables
-  var r, txVal, outputs, txDot, vizHeight, vizWidth,
-    vizContainter, dot, valNorm = 10000000;
+  var r, outputs, txDot, vizHeight, vizWidth,
+    vizContainter, dot, txVal = 0, valNorm = 10000000;
 
   // query DOM for viz Container
   vizContainter = $('.js-visualize');
@@ -35,14 +36,12 @@ function visualize(data) {
   // get value of first tx ouput (for test only)
   outputs = data.x.out;
 
-  txVal = 0;
-
   // iterate through all unspent outputs to calculate value of tx
   for(var i = 0; i < outputs.length; i++){
     txVal += outputs[i].value;
   }
 
-  // calculate radius
+  // calculate radius of circle to display
   r = (txVal / valNorm) / 2;
 
   // generate random position
@@ -61,11 +60,9 @@ function visualize(data) {
     .css({'top': randTop, 'left': randLeft, 'width': r, 'height': r})
     .attr('data-txvalue', txVal);
 
-
   // add element to DOM
   dot = vizContainter.append(txDot);
 }
-
 
 // function to display tooltip
 function showTooltip(event) {
