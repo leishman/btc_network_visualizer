@@ -1,18 +1,17 @@
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 
-
+  /* gray container for visualization */
   .vizContainer {
     width: 100%;
     height: 500px;
     background: #EEE;
   }
 
-   .txBubble {
+  /* outer element for bubble */
+  .txBubble {
     position: absolute;
   }
 
+  /* inner element for bubble */
   .txBubbleInner {
     width: 100%;
     height: 100%;
@@ -22,6 +21,7 @@
     -webkit-animation: expand 1s ease-in-out;
   }
 
+  /* box displaying information about a transaction on click */
   .toolTip {
     width: auto;
     height: 40px;
@@ -32,6 +32,7 @@
     position: absolute;
   }
 
+  /* words in tooltip */
   .toolTip p {
     line-height: 40px;
   }
@@ -45,6 +46,7 @@
       left: 50%;
       top: 50%;
     }
+
     100% {
       width: 100%;
       height: 100%;

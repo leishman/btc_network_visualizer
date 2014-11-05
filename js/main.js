@@ -1,4 +1,9 @@
 
+///////////////////////////////////////////
+/// Connect with Blockchain Websockets API
+////////////////////////////////////////////
+
+
 // create new websocket object using a secure connection (wss)
 var blkchainSocket = new WebSocket('wss://ws.blockchain.info/inv');
 
@@ -16,9 +21,15 @@ blkchainSocket.onopen = function(event) {
 // callback to execute when a message is displayed
 blkchainSocket.onmessage = function(event) {
   console.log(event.data);
+
+  // call visualize function (see below)
   visualize(JSON.parse(event.data));
 }
 
+
+/////////////////////////
+/// Visualize the data
+/////////////////////////
 
 function visualize(data) {
 
@@ -64,6 +75,13 @@ function visualize(data) {
   dot = vizContainter.append(txDot);
 }
 
+
+
+/////////////////////////////////////////
+/// Create a tooltip to display Tx data
+//////////////////////////////////////////
+
+
 // function to display tooltip
 function showTooltip(event) {
   // declare variables
@@ -76,7 +94,7 @@ function showTooltip(event) {
   xCoord = event.clientX;
   yCoord = event.clientY;
 
-  // remove other tooltips
+  // remove other tooltips to ensure only 1 is displayed at a time
   $('.toolTip').remove();
 
   // create a tooltip and position it at user's click
@@ -89,16 +107,19 @@ function showTooltip(event) {
 }
 
 // define random integer function
+// radomInt(5) will return a number from 0 to 4
+
 function randomInt(range) {
   return Math.floor(Math.random() * range);
 }
 
-// convert satoshis to BTC
+// convert Satoshis to BTC
+// There are 100,000,000 Satoshis in 1 Bitcoin
 function satoshi2btc(val) {
   return val / 100000000;
 }
 
-// bind showTooltip function on dom load
+// bind showTooltip function on DOM load
 $(function() {
   $(document).on('click', '.txBubble', showTooltip);
 });
