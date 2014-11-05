@@ -3,7 +3,6 @@
 /// Connect with Blockchain Websockets API
 ////////////////////////////////////////////
 
-
 // create new websocket object using a secure connection (wss)
 var blkchainSocket = new WebSocket('wss://ws.blockchain.info/inv');
 
@@ -77,11 +76,9 @@ function visualize(data) {
 }
 
 
-
 /////////////////////////////////////////
 /// Create a tooltip to display Tx data
 //////////////////////////////////////////
-
 
 // function to display tooltip
 function showTooltip(event) {
@@ -119,6 +116,11 @@ function randomInt(range) {
 function satoshi2btc(val) {
   return val / 100000000;
 }
+
+
+/////////////////////////////////////////
+/// Bind Tooltip event on document load
+//////////////////////////////////////////
 
 // bind showTooltip function on DOM load
 $(function() {
