@@ -1,0 +1,36 @@
+{  
+   "op":"utx",
+   "x":{  
+      "hash":"427937e561d2ab6236014d92509a1a872eec327de2b9f6d84cfcbce8af2db935",
+      "vin_sz":1,
+      "vout_sz":2,
+      "lock_time":"Unavailable",
+      "size":259,
+      "relayed_by":"127.0.0.1",
+      "tx_index":68494254,
+      "time":1415169009,
+      "inputs":[  
+         {  
+            "prev_out":{  
+               "value":29970360,
+               "addr":"17L4qAEjVbKZ99iXJFhWMzRWv3c8LHrUeq",
+               "type":0
+            }
+         }
+      ],
+      "out":[  
+         {  
+            "value":3020235,  // output 1, 3020235 Satoshis going to address 1DTnd....
+            "addr":"1DTnd8vwpJT3yo64xZST5Srm9Z5JEWQ6nA",
+            "type":0
+         },
+         {  
+            "value":26940125, // output 2, 26940125 Satoshis going to address 17L4....
+            "addr":"17L4qAEjVbKZ99iXJFhWMzRWv3c8LHrUeq",
+            "type":0
+         }
+      ]
+   }
+}
+
+

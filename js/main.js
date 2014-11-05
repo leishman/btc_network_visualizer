@@ -19,11 +19,14 @@ blkchainSocket.onopen = function(event) {
 
 // callback to execute when a message is displayed
 blkchainSocket.onmessage = function(event) {
+  // Parse the data returned to convert to JSON
+  var txData = JSON.parse(event.data);
+
   // log data to console
-  console.log(event.data);
+  console.log(txData);
 
   // pass data to visualize() function (defined below)
-  visualize(JSON.parse(event.data));
+  visualize(txData);
 }
 
 
