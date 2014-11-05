@@ -22,7 +22,7 @@ blkchainSocket.onmessage = function(event) {
   // log data to console
   console.log(event.data);
 
-  // call visualize function (see below)
+  // pass data to visualize() function (defined below)
   visualize(JSON.parse(event.data));
 }
 
@@ -31,6 +31,8 @@ blkchainSocket.onmessage = function(event) {
 /// Visualize the data
 /////////////////////////
 
+// Input: JSON data object representing a new Bitcoin transaction from Blockchain.info API
+// Result: Append a circle (bubble) to the DOM with a size proportional to the transaction value
 function visualize(data) {
 
   // declare variables
@@ -80,7 +82,11 @@ function visualize(data) {
 /// Create a tooltip to display Tx data
 //////////////////////////////////////////
 
-// function to display tooltip
+// Input: event, passed by calling function. showTooltip() acts as a callback function when a bubble is clicked
+// see $(document).on('click', '.txBubble', showTooltip);
+
+// Result: Display tooltip with the transaction value (in BTC) represented by the bubble
+
 function showTooltip(event) {
   // declare variables
   var addrs, value, tooltip;
