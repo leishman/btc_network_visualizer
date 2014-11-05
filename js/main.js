@@ -20,6 +20,7 @@ blkchainSocket.onopen = function(event) {
 
 // callback to execute when a message is displayed
 blkchainSocket.onmessage = function(event) {
+  // log data to console
   console.log(event.data);
 
   // call visualize function (see below)
@@ -47,32 +48,32 @@ function visualize(data) {
   // get value of first tx ouput (for test only)
   outputs = data.x.out;
 
-  // iterate through all unspent outputs to calculate value of tx
+  // sum all unspent outputs to calculate total value of Tx
   for(var i = 0; i < outputs.length; i++){
     txVal += outputs[i].value;
   }
 
-  // calculate radius of circle to display
+  // calculate radius of circle to display based on Tx value
   r = (txVal / valNorm) / 2;
 
   // generate random position
   randTop = randomInt(vizHeight) + 88;
   randLeft = randomInt(vizWidth) - r;
 
-  // set min and max sizes for r
+  // set min and max sizes for radius (r)
   if(r < 5) {
     r = 5;
   } else if(r > 100) {
     r = 100;
   }
 
-  // define HTML element
-  txDot = $('<div class="txBubble"><div class="txBubbleInner"></div></div>')
+  // create HTML elements to use as bubble
+  txBubble = $('<div class="txBubble"><div class="txBubbleInner"></div></div>')
     .css({'top': randTop, 'left': randLeft, 'width': r, 'height': r})
     .attr('data-txvalue', txVal);
 
-  // add element to DOM
-  dot = vizContainter.append(txDot);
+  // add bubble element to DOM
+  dot = vizContainter.append(txBubble);
 }
 
 
