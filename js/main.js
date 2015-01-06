@@ -92,7 +92,7 @@ function visualize(data) {
 
 function showTooltip(event) {
   // declare variables
-  var addrs, value, tooltip;
+  var addrs, value, tooltip, xCoord, yCoord;
 
   // get value of tx stored as data attribute
   value = $(this).data('txvalue');
