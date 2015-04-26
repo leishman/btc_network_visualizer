@@ -15,7 +15,7 @@ blkchainSocket.onopen = function(event) {
 
   // send message to subscribe
   blkchainSocket.send(subMessage);
-}
+};
 
 // callback to execute when a message is displayed
 blkchainSocket.onmessage = function(event) {
@@ -27,7 +27,7 @@ blkchainSocket.onmessage = function(event) {
 
   // pass data to visualize() function (defined below)
   visualize(txData);
-}
+};
 
 
 /////////////////////////
@@ -39,8 +39,9 @@ blkchainSocket.onmessage = function(event) {
 function visualize(data) {
 
   // declare variables
-  var r, outputs, txDot, vizHeight, vizWidth,
-    vizContainter, dot, txVal = 0, valNorm = 10000000;
+  var r, outputs, vizHeight, vizWidth,
+      vizContainter, dot, txVal = 0, valNorm = 10000000,
+      randTop, randLeft, txBubble;
 
   // query DOM for viz Container
   vizContainter = $('.js-visualize');
@@ -92,7 +93,7 @@ function visualize(data) {
 
 function showTooltip(event) {
   // declare variables
-  var addrs, value, tooltip, xCoord, yCoord;
+  var value, tooltip, xCoord, yCoord;
 
   // get value of tx stored as data attribute
   value = $(this).data('txvalue');
